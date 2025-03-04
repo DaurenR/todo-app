@@ -1,0 +1,35 @@
+@import './variables.scss';
+
+.item {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: $border-radius;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  input[type='checkbox'] {
+    margin-right: 10px;
+  }
+
+  .text {
+    flex: 1;
+    text-decoration: none;
+    color: $text-color;
+    transition: opacity 0.3s;
+  }
+
+  .completed {
+    opacity: 0.6;
+    text-decoration: line-through;
+  }
+
+  button {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 18px;
+    cursor: pointer;
+  }
+}

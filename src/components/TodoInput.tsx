@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import styles from '../styles/TodoInput.module.scss'
 
 interface TodoInputProps {
   onAdd: (text: string) => void
@@ -14,7 +15,7 @@ const TodoInput: React.FC<TodoInputProps> = ({ onAdd }) => {
   }
 
   return (
-    <div>
+    <div className={styles.inputContainer}>
       <input
         type="text"
         value={text}

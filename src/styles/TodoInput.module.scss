@@ -1,0 +1,29 @@
+@import './variables.scss';
+
+.inputContainer {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  input {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid $primary-color;
+    border-radius: $border-radius;
+    outline: none;
+  }
+
+  button {
+    background-color: $primary-color;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: $border-radius;
+    cursor: pointer;
+    transition: background 0.3s;
+
+    &:hover {
+      background-color: $secondary-color;
+    }
+  }
+}
