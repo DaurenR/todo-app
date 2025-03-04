@@ -1,39 +1,36 @@
-import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState } from '../store/store'
+import { addTodo, toggleTodo, deleteTodo } from '../store/todoSlice'
 import TodoInput from './TodoInput'
 import TodoItem from './TodoItem'
 
-interface Todo {
-  id: number
-  text: string
-  completed: boolean
-}
-
 const TodoList: React.FC = () => {
-  const [todos, setTodos] = useState<Todo[]>([])
+  const todos = useSelector((state: RootState) => state.todos.todos)
+  const dispatch = useDispatch()
 
-  const addTodo = (text: string) => {
-    const newTodo = { id: Date.now(), text, completed: false }
-    setTodos([...todos, newTodo])
+  const handleAddTodo = (text: string) => {
+    dispatch(addTodo(text))
   }
 
-  const toggleTodo = (id: number) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
-    )
+  const handleToggleTodo = (id: number) => {
+    dispatch(toggleTodo(id))
   }
 
-  const deleteTodo = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id))
+  const handleDeleteTodo = (id: number) => {
+    dispatch(deleteTodo(id))
   }
 
   return (
     <div>
       <h1>To-Do List</h1>
-      <TodoInput onAdd={addTodo} />
+      <TodoInput onAdd={handleAddTodo} />
       {todos.map((todo) => (
-        <TodoItem key={todo.id} {...todo} onToggle={toggleTodo} onDelete={deleteTodo} />
+        <TodoItem
+          key={todo.id}
+          {...todo}
+          onToggle={handleToggleTodo}
+          onDelete={handleDeleteTodo}
+        />
       ))}
     </div>
   )
