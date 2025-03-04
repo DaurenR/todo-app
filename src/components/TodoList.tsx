@@ -5,7 +5,7 @@ import TodoInput from './TodoInput'
 import TodoItem from './TodoItem'
 
 const TodoList: React.FC = () => {
-  const todos = useSelector((state: RootState) => state.todos.todos)
+  const todos = useSelector((state: RootState) => state.todos)
   const dispatch = useDispatch()
 
   const handleAddTodo = (text: string) => {
