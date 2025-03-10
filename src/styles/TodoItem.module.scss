@@ -1,4 +1,4 @@
-@import './variables.scss';
+@use './variables' as *;
 
 .item {
   display: flex;
@@ -6,7 +6,7 @@
   background: white;
   padding: 10px;
   margin-bottom: 10px;
-  border-radius: $border-radius;
+  border-radius: var(--border-radius);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   input[type='checkbox'] {
@@ -16,7 +16,7 @@
   .text {
     flex: 1;
     text-decoration: none;
-    color: $text-color;
+    color: var(--text-color);
     transition: opacity 0.3s;
   }
 

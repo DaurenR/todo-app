@@ -1,7 +1,9 @@
 import TodoList from "./components/TodoList"
+import './styles/global.scss'
+
 const App = () => {
   return (
-    <div>
+    <div className="container">
       <TodoList />
     </div>
   )
