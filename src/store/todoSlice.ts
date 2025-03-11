@@ -7,31 +7,40 @@ interface Todo {
   completed: boolean
 }
 
-const initialState: Todo[] = loadState<Todo[]>('todos', [])
+type Filter = 'all' | 'active' | 'completed'
+
+interface TodoState {
+  todos: Todo[]
+  filter: Filter
+}
+
+const initialState: TodoState = {
+  todos: loadState<Todo[]>('todos', []),
+  filter: 'all', // Фильтр по умолчанию
+}
 
 const todoSlice = createSlice({
   name: 'todos',
   initialState,
   reducers: {
     addTodo: (state, action: PayloadAction<string>) => {
-      const newTodo: Todo = { id: Date.now(), text: action.payload, completed: false }
-      state.push(newTodo)
-      saveState('todos', state) // Сохраняем в LocalStorage
+      state.todos.push({ id: Date.now(), text: action.payload, completed: false })
+      saveState('todos', state.todos)
     },
     toggleTodo: (state, action: PayloadAction<number>) => {
-      const todo = state.find((t) => t.id === action.payload)
-      if (todo) {
-        todo.completed = !todo.completed
-        saveState('todos', state) // Обновляем LocalStorage
-      }
+      const todo = state.todos.find((t) => t.id === action.payload)
+      if (todo) todo.completed = !todo.completed
+      saveState('todos', state.todos)
     },
     deleteTodo: (state, action: PayloadAction<number>) => {
-      const newState = state.filter((t) => t.id !== action.payload)
-      saveState('todos', newState)
-      return newState
+      state.todos = state.todos.filter((t) => t.id !== action.payload)
+      saveState('todos', state.todos)
+    },
+    setFilter: (state, action: PayloadAction<Filter>) => {
+      state.filter = action.payload
     },
   },
 })
 
-export const { addTodo, toggleTodo, deleteTodo } = todoSlice.actions
+export const { addTodo, toggleTodo, deleteTodo, setFilter } = todoSlice.actions
 export default todoSlice.reducer
