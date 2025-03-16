@@ -40,8 +40,13 @@ const todoSlice = createSlice({
       state.filter = action.payload
       saveState('filter', state.filter)
     },
+
+    reorderTodos: (state, action: PayloadAction<Todo[]>) => {
+      state.todos = action.payload
+      saveState('todos', state.todos)
+    }
   },
 })
 
-export const { addTodo, toggleTodo, deleteTodo, setFilter } = todoSlice.actions
+export const { addTodo, toggleTodo, deleteTodo, setFilter, reorderTodos } = todoSlice.actions
 export default todoSlice.reducer
