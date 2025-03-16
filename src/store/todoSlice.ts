@@ -16,7 +16,7 @@ interface TodoState {
 
 const initialState: TodoState = {
   todos: loadState<Todo[]>('todos', []),
-  filter: 'all', // Фильтр по умолчанию
+  filter: loadState<Filter>('filter', 'all'),
 }
 
 const todoSlice = createSlice({
@@ -38,6 +38,7 @@ const todoSlice = createSlice({
     },
     setFilter: (state, action: PayloadAction<Filter>) => {
       state.filter = action.payload
+      saveState('filter', state.filter)
     },
   },
 })
