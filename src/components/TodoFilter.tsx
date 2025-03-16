@@ -1,6 +1,7 @@
 import { useAppDispatch, useAppSelector } from '../store/hooks'
 import { setFilter } from '../store/todoSlice'
 import styles from '../styles/TodoFilter.module.scss'
+import clsx from 'clsx'
 
 const TodoFilter: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -10,19 +11,19 @@ const TodoFilter: React.FC = () => {
     <div className={styles['filter-buttons']}>
       <button
         onClick={() => dispatch(setFilter('all'))}
-        className={filter === 'all' ? 'styles.active' : ''}
+        className={clsx({ [styles.active]: filter === 'all' })}
       >
         Все
       </button>
       <button
         onClick={() => dispatch(setFilter('active'))}
-        className={filter === 'active' ? 'styles.active' : ''}
+        className={clsx({ [styles.active]: filter === 'active' })}
       >
         Активные
       </button>
       <button
         onClick={() => dispatch(setFilter('completed'))}
-        className={filter === 'completed' ? 'styles.active' : ''}
+        className={clsx({ [styles.active]: filter === 'completed' })}
       >
         Завершённые
       </button>
