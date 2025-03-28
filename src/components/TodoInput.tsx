@@ -20,9 +20,11 @@ const TodoInput: React.FC<TodoInputProps> = ({ onAdd }) => {
         type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
+        onKeyDown={(e) => e.key === 'Enter' && handleAdd()} 
         placeholder="Добавить задачу..."
+        className={styles.input}
       />
-      <button onClick={handleAdd}>Добавить</button>
+      <button onClick={handleAdd} className={styles.addButton}>+</button>
     </div>
   )
 }
