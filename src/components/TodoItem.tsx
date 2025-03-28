@@ -26,11 +26,6 @@ const TodoItem: React.FC<TodoItemProps> = ({ id, text, completed, onToggle, onDe
     transition,
   }
 
-  const handleDoubleClick = () => {
-    setIsEditing(true)
-    setTimeout(() => inputRef.current?.focus(), 0)
-  }
-
   const handleSave = () => {
     if (newText.trim() === '') return
     dispatch(editTodo({ id, newText }))
@@ -38,28 +33,41 @@ const TodoItem: React.FC<TodoItemProps> = ({ id, text, completed, onToggle, onDe
   }
 
   return (
-    <div ref={setNodeRef} style={style} {...(isEditing ? {} : { ...attributes, ...listeners })} className={styles.todoItem}>
-      <input type="checkbox" checked={completed} onChange={onToggle} />
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...(isEditing ? {} : { ...attributes, ...listeners })}
+      className={styles.todoItem}
+    >
+      <input
+        type="checkbox"
+        checked={completed}
+        onChange={onToggle}
+        className={styles.checkbox}
+      />
 
       {isEditing ? (
-        <div className={styles.editContainer}>
-          <input
-            ref={inputRef}
-            type="text"
-            value={newText}
-            onChange={(e) => setNewText(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleSave()}
-            className={styles.todoInput}
-          />
-          <button onClick={handleSave} className={styles.saveButton}>💾</button>
-        </div>
+        <input
+          ref={inputRef}
+          type="text"
+          value={newText}
+          onChange={(e) => setNewText(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && handleSave()}
+          className={styles.todoInput}
+        />
       ) : (
-        <span onDoubleClick={handleDoubleClick} className={`${styles.todoText} ${completed ? styles.completed : ''}`}>
+        <span
+          className={`${styles.text} ${completed ? styles.completed : ''}`}
+          onDoubleClick={() => {
+            setIsEditing(true)
+            setTimeout(() => inputRef.current?.focus(), 0)
+          }}
+        >
           {text}
         </span>
       )}
 
-      <button onClick={onDelete} className={styles.deleteButton}>❌</button>
+      <button onClick={onDelete} className={styles.deleteBtn}>✕</button>
     </div>
   )
 }
